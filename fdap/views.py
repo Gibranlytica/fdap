@@ -1,100 +1,86 @@
 from django.shortcuts import render
 from django.http import Http404
-from rest_framework.views import APIView
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import viewsets
+from .serializers import LangdetectSerializer, SentenceSplittingSerializer, TokenizergSerializer, PostaggingSerializer, WsdtaggerSerializer, NerSerializer, DatesDetectSerializer, ParserSerializer, DependenciesSerializer, PostSerializer
 from django.http import JsonResponse
 from django.core import serializers
 from django.conf import settings
 import json
 
-# Create your views here.
-@api_view(["POST"])
-def langdetect(texto):
-    try:
-        height=json.loads(texto.body)
-        weight=str(height*10)
-        return JsonResponse("Ideal weight should be:"+weight+" kg",safe=False)
-    except ValueError as e:
-        return Response(e.args[0],status.HTTP_400_BAD_REQUEST)
 
-# Create your views here.
-@api_view(["POST"])
-def sentenceSplitting(texto):
-    try:
-        height=json.loads(texto.body)
-        weight=str(height*10)
-        return JsonResponse("Ideal weight should be:"+weight+" kg",safe=False)
-    except ValueError as e:
-        return Response(e.args[0],status.HTTP_400_BAD_REQUEST)
+class LangdetectViewSet(views.APIView):
 
-# Create your views here.
-@api_view(["POST"])
-def tokenizer(texto):
-    try:
-        height=json.loads(texto.body)
-        weight=str(height*10)
-        return JsonResponse("Ideal weight should be:"+weight+" kg",safe=False)
-    except ValueError as e:
-        return Response(e.args[0],status.HTTP_400_BAD_REQUEST)
+    def get(self, request):
+        yourdata= [{"likes": 10, "comments": 0}, {"likes": 4, "comments": 23}]
+        results = LangdetectSerializer(yourdata, many=True).data
+        return Response(results)
 
-# Create your views here.
-@api_view(["POST"])
-def postagging(texto):
-    try:
-        height=json.loads(texto.body)
-        weight=str(height*10)
-        return JsonResponse("Ideal weight should be:"+weight+" kg",safe=False)
-    except ValueError as e:
-        return Response(e.args[0],status.HTTP_400_BAD_REQUEST)
+class SentenceSplittingViewSet(serializers.Serializer):
 
-# Create your views here.
-@api_view(["POST"])
-def wsdtagger(texto):
-    try:
-        height=json.loads(texto.body)
-        weight=str(height*10)
-        return JsonResponse("Ideal weight should be:"+weight+" kg",safe=False)
-    except ValueError as e:
-        return Response(e.args[0],status.HTTP_400_BAD_REQUEST)
+    def get(self, request):
+        yourdata= [{"likes": 10, "comments": 0}, {"likes": 4, "comments": 23}]
+        results = SentenceSplittingSerializer(yourdata, many=True).data
+        return Response(results)
 
-# Create your views here.
-@api_view(["POST"])
-def ner(texto):
-    try:
-        height=json.loads(texto.body)
-        weight=str(height*10)
-        return JsonResponse("Ideal weight should be:"+weight+" kg",safe=False)
-    except ValueError as e:
-        return Response(e.args[0],status.HTTP_400_BAD_REQUEST)
+class TokenizerViewSet(serializers.Serializer):
 
-# Create your views here.
-@api_view(["POST"])
-def datesDetect(texto):
-    try:
-        height=json.loads(texto.body)
-        weight=str(height*10)
-        return JsonResponse("Ideal weight should be:"+weight+" kg",safe=False)
-    except ValueError as e:
-        return Response(e.args[0],status.HTTP_400_BAD_REQUEST)
+    def get(self, request):
+        yourdata= [{"likes": 10, "comments": 0}, {"likes": 4, "comments": 23}]
+        results = TokenizergSerializer(yourdata, many=True).data
+        return Response(results)
 
-# Create your views here.
-@api_view(["POST"])
-def parser(texto):
-    try:
-        height=json.loads(texto.body)
-        weight=str(height*10)
-        return JsonResponse("Ideal weight should be:"+weight+" kg",safe=False)
-    except ValueError as e:
-        return Response(e.args[0],status.HTTP_400_BAD_REQUEST)
+class PostaggingViewSet(serializers.Serializer):
 
-# Create your views here.
-@api_view(["POST"])
-def dependencies(texto):
-    try:
-        height=json.loads(texto.body)
-        weight=str(height*10)
-        return JsonResponse("Ideal weight should be:"+weight+" kg",safe=False)
-    except ValueError as e:
-        return Response(e.args[0],status.HTTP_400_BAD_REQUEST)
+    def get(self, request):
+        yourdata= [{"likes": 10, "comments": 0}, {"likes": 4, "comments": 23}]
+        results = PostaggingSerializer(yourdata, many=True).data
+        return Response(results)
+
+class WsdtaggerViewSet(serializers.Serializer):
+    
+    def get(self, request):
+        yourdata= [{"likes": 10, "comments": 0}, {"likes": 4, "comments": 23}]
+        results = WsdtaggerSerializer(yourdata, many=True).data
+        return Response(results)
+
+class NerViewSet(viewsets.ModelViewSet):
+
+    def get(self, request):
+        yourdata= [{"likes": 10, "comments": 0}, {"likes": 4, "comments": 23}]
+        results = NerSerializer(yourdata, many=True).data
+        return Response(results)
+
+class DatesDetectViewSet(viewsets.ModelViewSet):
+    
+    def get(self, request):
+        yourdata= [{"likes": 10, "comments": 0}, {"likes": 4, "comments": 23}]
+        results = DatesDetectSerializer(yourdata, many=True).data
+        return Response(results)
+
+class ParserViewSet(viewsets.ModelViewSet):
+    
+    def get(self, request):
+        yourdata= [{"likes": 10, "comments": 0}, {"likes": 4, "comments": 23}]
+        results = ParserSerializer(yourdata, many=True).data
+        return Response(results)
+
+class DependenciesViewSet(viewsets.ModelViewSet):
+    
+    def get(self, request):
+        yourdata= [{"likes": 10, "comments": 0}, {"likes": 4, "comments": 23}]
+        results = DependenciesSerializer(yourdata, many=True).data
+        return Response(results)
+
+def index(request):
+    nombre = "Israel"
+    blog = "https://www.uno-de-piera.com"
+    tupla = (1,2,3,4,5,6,7,8,9,10)
+    context = {
+        'saludo': 'hola que ase', 
+        'tupla':tupla,
+        'nombre': nombre,
+        'blog': blog
+    }
+    
+    # devolvemos los datos a la vista saludo.html para printarlos
+    return render(request, 'index.html', context)

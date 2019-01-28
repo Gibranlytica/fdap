@@ -13,19 +13,38 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.conf.urls import url
-from fdap import views
+from rest_framework import routers
+from FdaProject.views import TaskViewSet
 
-urlpatterns = [
-    url('admin/', admin.site.urls),
-    url(r'^langdetect/',views.langdetect),
-    url(r'^sentenceSplitting/',views.sentenceSplitting),
-    url(r'^tokenizer/',views.tokenizer),
-    url(r'^postagging/',views.postagging),
-    url(r'^wsdtagger/',views.wsdtagger),
-    url(r'^ner/',views.ner),
-    url(r'^datesDetect/',views.datesDetect),
-    url(r'^parser/',views.parser),
-    url(r'^dependencies/',views.dependencies),
-]
+router = routers.DefaultRouter()
+router.register(r'admin/', admin.site.urls)
+router.register(r'Langdetec', views.LangdetectViewSet)
+router.register(r'SentenceSplitting', views.SentenceSplittingViewSet)
+router.register(r'Tokenizer', views.TokenizerViewSet)
+router.register(r'Postagging', views.PostaggingViewSet)
+router.register(r'Wsdtagger', views.WsdtaggerViewSet)
+router.register(r'Ner', views.NerViewSet)
+router.register(r'DatesDetect', views.DatesDetectViewSet)
+router.register(r'Parser', views.ParserViewSet)
+router.register(r'Dependencies', views.DependenciesViewSet)
+
+urlpatterns = router.urls
+
+#urlpatterns = [
+    #url('admin/', admin.site.urls),
+ 
+    #url(r'^$', views.api_root),
+    #url(r'^', include('users.urls', namespace='users')),
+    #url(r'^', include('todos.urls', namespace='todos')),
+    
+    # url(r'^$', views.index, name='index'),
+    #url(r'^langdetect/',views.langdetect),
+    #url(r'^sentenceSplitting/',views.sentenceSplitting),
+    #url(r'^tokenizer/',views.tokenizer),
+    #url(r'^postagging/',views.postagging),
+    #url(r'^wsdtagger/',views.wsdtagger),
+    #url(r'^ner/',views.ner),
+    #url(r'^datesDetect/',views.datesDetect),
+    #url(r'^parser/',views.parser),
+    #url(r'^dependencies/',views.dependencies),
+#]
