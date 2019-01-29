@@ -14,19 +14,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from rest_framework import routers
-from FdaProject.views import TaskViewSet
+from fdap.views import TaskViewSet
 
 router = routers.DefaultRouter()
-router.register(r'admin/', admin.site.urls)
-router.register(r'Langdetec', views.LangdetectViewSet)
-router.register(r'SentenceSplitting', views.SentenceSplittingViewSet)
-router.register(r'Tokenizer', views.TokenizerViewSet)
-router.register(r'Postagging', views.PostaggingViewSet)
-router.register(r'Wsdtagger', views.WsdtaggerViewSet)
-router.register(r'Ner', views.NerViewSet)
-router.register(r'DatesDetect', views.DatesDetectViewSet)
-router.register(r'Parser', views.ParserViewSet)
-router.register(r'Dependencies', views.DependenciesViewSet)
+# router.register(r'admin/', admin.site.urls)
+# router.register(r'Langdetec', views.LangdetectViewSet)
+# router.register(r'SentenceSplitting', views.SentenceSplittingViewSet)
+# router.register(r'Tokenizer', views.TokenizerViewSet)
+# router.register(r'Postagging', views.PostaggingViewSet)
+# router.register(r'Wsdtagger', views.WsdtaggerViewSet)
+# router.register(r'Ner', views.NerViewSet)
+# router.register(r'DatesDetect', views.DatesDetectViewSet)
+# router.register(r'Parser', views.ParserViewSet)
+# router.register(r'Dependencies', views.DependenciesViewSet)
+
+router.register(r'', TaskViewSet, base_name='tasks')
 
 urlpatterns = router.urls
 
