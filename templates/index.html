@@ -1,33 +1,113 @@
+<!DOCTYPE html>
 <html>
-<head>
- <title>Hola mundo con Djangosss</title>
-</head>
-<body>
- {{ saludo }} {{ blog }}<br>
- 
- {% for datos in tupla %}
- {{ datos }}<br>
- {% endfor %}
-</body>
-</html>
+  <head>
+    
 
-  <div class="container-fluid">
+      
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="robots" content="NONE,NOARCHIVE" />
+      
 
-    <div class="row">
-      <div class="col-sm-2">
-      {% block sidebar %}
-      <ul class="sidebar-nav">
-          <li><a href="{% url 'index' %}">Home</a></li>
-          <li><a href="">All books</a></li>
-          <li><a href="">All authors</a></li>
-      </ul>
-     {% endblock %}
-      </div>
-      <div class="col-sm-10 ">
-      {% block content %}{% endblock %}
-      </div>
+      <title>
+Freeling Django Api Rest v1
+</title>
+
+      
+        
+          <link rel="stylesheet" type="text/css" href="/static/rest_framework/css/bootstrap.min.css"/>
+          <link rel="stylesheet" type="text/css" href="/static/rest_framework/css/bootstrap-tweaks.css"/>
+        
+
+        <link rel="stylesheet" type="text/css" href="/static/rest_framework/css/prettify.css"/>
+        <link rel="stylesheet" type="text/css" href="/static/rest_framework/css/default.css"/>
+        
+      
+
+    
+  </head>
+
+  
+  <body class="">
+
+    <div class="wrapper">
+      
+        <div class="navbar navbar-static-top navbar-inverse"
+             role="navigation" aria-label="navbar">
+          <div class="container">
+            <span>
+              
+    <a class="navbar-brand" rel="nofollow" href="#">
+        Freeling Django API Rest
+    </a>
+
+            </span>
+            <ul class="nav navbar-nav pull-right">
+              
+                
+                  
+                
+              
+            </ul>
+          </div>
+        </div>
+      
+
+      <div class="container">
+        
+  <ul class="breadcrumb">
+    HOME&nbsp;
+  </ul>
+
+
+        <!-- Content -->
+        <div id="content" role="main" aria-label="content">
+          
+
+<div class="content-main" role="main"  aria-label="main content">
+  <div class="page-header">&nbsp;</div>
+  <div class="response-info" aria-label="response info">
+      <pre class="prettyprint">
+         
+          <li><a href="/langdetect/">host:port/langdetect/</a></tr>
+          <li><a href="/sentenceSplitting/">host:port/sentenceSplitting/</a></tr>
+          <li><a href="/tokenizer/">host:port/tokenizer/</a></tr>
+          <li><a href="/postagging/">host:port/postagging/</a></tr>
+          <li><a href="/wsdtagger/">host:port/wsdtagger/</a></tr>
+          <li><a href="/ner/">host:port/ner/</a></tr>
+          <li><a href="/datesDetect/">host:port/datesDetect/</a></tr>
+          <li><a href="/parser/">host:port/parser/</a></tr>
+          <li><a href="/dependencies/">host:port/dependencies/</a></tr>
+      </pre>
     </div>
+</div>
 
-  </div>
-</body>
+
+        </div><!-- /.content -->
+      </div><!-- /.container -->
+    </div><!-- ./wrapper -->
+
+    
+
+    
+      <script>
+        window.drf = {
+          csrfHeaderName: "X-CSRFToken",
+          csrfCookieName: "csrftoken"
+        };
+      </script>
+      <script src="/static/rest_framework/js/jquery-3.3.1.min.js"></script>
+      <script src="/static/rest_framework/js/ajax-form.js"></script>
+      <script src="/static/rest_framework/js/csrf.js"></script>
+      <script src="/static/rest_framework/js/bootstrap.min.js"></script>
+      <script src="/static/rest_framework/js/prettify-min.js"></script>
+      <script src="/static/rest_framework/js/default.js"></script>
+      <script>
+        $(document).ready(function() {
+          $('form').ajaxForm();
+        });
+      </script>
+    
+
+  </body>
+  
 </html>
