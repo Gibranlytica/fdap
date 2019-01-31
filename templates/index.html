@@ -1,113 +1,71 @@
 <!DOCTYPE html>
 <html>
   <head>
-    
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="robots" content="NONE,NOARCHIVE" />
 
-      
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta name="robots" content="NONE,NOARCHIVE" />
-      
+    <title>Freeling Django Api Rest v1</title>
 
-      <title>
-Freeling Django Api Rest v1
-</title>
-
-      
-        
-          <link rel="stylesheet" type="text/css" href="/static/rest_framework/css/bootstrap.min.css"/>
-          <link rel="stylesheet" type="text/css" href="/static/rest_framework/css/bootstrap-tweaks.css"/>
-        
-
-        <link rel="stylesheet" type="text/css" href="/static/rest_framework/css/prettify.css"/>
-        <link rel="stylesheet" type="text/css" href="/static/rest_framework/css/default.css"/>
-        
-      
-
-    
+    <link rel="stylesheet" type="text/css" href="/static/rest_framework/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/rest_framework/css/bootstrap-tweaks.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/rest_framework/css/prettify.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/rest_framework/css/default.css"/>
   </head>
-
-  
   <body class="">
 
     <div class="wrapper">
-      
         <div class="navbar navbar-static-top navbar-inverse"
              role="navigation" aria-label="navbar">
           <div class="container">
-            <span>
-              
-    <a class="navbar-brand" rel="nofollow" href="#">
-        Freeling Django API Rest
-    </a>
-
+            <span> 
+              <a class="navbar-brand" rel="nofollow" href="/">Freeling Django API Rest</a>
             </span>
-            <ul class="nav navbar-nav pull-right">
-              
-                
-                  
-                
-              
-            </ul>
+            <ul class="nav navbar-nav pull-right"></ul>
           </div>
         </div>
-      
 
-      <div class="container">
-        
-  <ul class="breadcrumb">
-    HOME&nbsp;
-  </ul>
+        <div class="container">
+          <ul class="breadcrumb">HOME&nbsp;</ul>
 
-
-        <!-- Content -->
-        <div id="content" role="main" aria-label="content">
-          
-
-<div class="content-main" role="main"  aria-label="main content">
-  <div class="page-header">&nbsp;</div>
-  <div class="response-info" aria-label="response info">
-      <pre class="prettyprint">
-         
-          <li><a href="/langdetect/">host:port/langdetect/</a></tr>
-          <li><a href="/sentenceSplitting/">host:port/sentenceSplitting/</a></tr>
-          <li><a href="/tokenizer/">host:port/tokenizer/</a></tr>
-          <li><a href="/postagging/">host:port/postagging/</a></tr>
-          <li><a href="/wsdtagger/">host:port/wsdtagger/</a></tr>
-          <li><a href="/ner/">host:port/ner/</a></tr>
-          <li><a href="/datesDetect/">host:port/datesDetect/</a></tr>
-          <li><a href="/parser/">host:port/parser/</a></tr>
-          <li><a href="/dependencies/">host:port/dependencies/</a></tr>
-      </pre>
-    </div>
-</div>
-
-
-        </div><!-- /.content -->
-      </div><!-- /.container -->
+          <!-- Content -->
+          <div id="content" role="main" aria-label="content">
+            <div class="content-main" role="main"  aria-label="main content">
+              <div class="page-header">&nbsp;</div>
+              <div class="response-info" aria-label="response info">
+                <ul class="list-group">
+                  <li class="list-group-item list-group-item-primary"><a href="/langdetect/">host:port/langdetect/</a></li>
+                  <li class="list-group-item list-group-item-success"><a href="/sentenceSplitting/">host:port/sentenceSplitting/</a></li>
+                  <li class="list-group-item list-group-item-danger"><a href="/tokenizer/">host:port/tokenizer/</a></li>
+                  <li class="list-group-item list-group-item-warning"><a href="/postagging/">host:port/postagging/</a></li>
+                  <li class="list-group-item list-group-item-info"><a href="/wsdtagger/">host:port/wsdtagger/</a></li>
+                  <li class="list-group-item list-group-item-primary"><a href="/ner/">host:port/ner/</a></li>
+                  <li class="list-group-item list-group-item-success"><a href="/datesDetect/">host:port/datesDetect/</a></li>
+                  <li class="list-group-item list-group-item-danger"><a href="/parser/">host:port/parser/</a></li>
+                  <li class="list-group-item list-group-item-warning"><a href="/dependencies/">host:port/dependencies/</a></li>
+                  
+                </ul>
+              </div>
+            </div>
+          </div><!-- /.content -->
+        </div><!-- /.container -->
     </div><!-- ./wrapper -->
 
-    
-
-    
-      <script>
+    <script>
         window.drf = {
           csrfHeaderName: "X-CSRFToken",
           csrfCookieName: "csrftoken"
         };
-      </script>
-      <script src="/static/rest_framework/js/jquery-3.3.1.min.js"></script>
-      <script src="/static/rest_framework/js/ajax-form.js"></script>
-      <script src="/static/rest_framework/js/csrf.js"></script>
-      <script src="/static/rest_framework/js/bootstrap.min.js"></script>
-      <script src="/static/rest_framework/js/prettify-min.js"></script>
-      <script src="/static/rest_framework/js/default.js"></script>
-      <script>
-        $(document).ready(function() {
-          $('form').ajaxForm();
-        });
-      </script>
-    
-
+    </script>
+    <script src="/static/rest_framework/js/jquery-3.3.1.min.js"></script>
+    <script src="/static/rest_framework/js/ajax-form.js"></script>
+    <script src="/static/rest_framework/js/csrf.js"></script>
+    <script src="/static/rest_framework/js/bootstrap.min.js"></script>
+    <script src="/static/rest_framework/js/prettify-min.js"></script>
+    <script src="/static/rest_framework/js/default.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('form').ajaxForm();
+      });
+    </script>
   </body>
-  
 </html>
