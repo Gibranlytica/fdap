@@ -39,8 +39,8 @@ class postagging(APIView):
 
     def post(self, request, *args, **kwargs):
         analize = Postagger(request.data)
-        analize.principal()
-        serializer = serializers.textoSerializer(data=analize)
+        k = analize.principal()
+        serializer = serializers.textoSerializer(data=k)
         if serializer.is_valid():
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

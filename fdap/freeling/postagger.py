@@ -14,16 +14,23 @@ class Postagger:
             # for each word in sentence
             for w in s :
                 # print word form  
-                print("word '"+w.get_form()+"'")
+                # print("word '"+w.get_form()+"'")
+                x = "word '"+w.get_form()+"'"
                 # print possible analysis in word, output lemma and tag
-                print("  Possible analysis: {",end="")
+                #print("  Possible analysis: {",end="")
+                x +=  "  Possible analysis: {"
                 for a in w :
-                    print(" ("+a.get_lemma()+","+a.get_tag()+")",end="")
-                print(" }")
+                    #print(" ("+a.get_lemma()+","+a.get_tag()+")",end="")
+                    x += " (" + a.get_lemma() + "," + a.get_tag() +")"
+                #print(" }")
+                x+= " }"
                 #  print analysis selected by the tagger 
-                print("  Selected Analysis: ("+w.get_lemma()+","+w.get_tag()+")")
+                #print("  Selected Analysis: ("+w.get_lemma()+","+w.get_tag()+")")
+                x += "  Selected Analysis: (" +w.get_lemma() + "," + w.get_tag() + ")"
             # sentence separator
-            print("")  
+            # print("")
+            x+=""
+            return x
 
 
     ## -----------------------------------------------
@@ -90,7 +97,11 @@ class Postagger:
         tagger = freeling.hmm_tagger(lpath+"tagger.dat",True,2)
 
         # process input text
-        text = self.texto
+        s0 = self.texto
+        
+        s1 = list();
+        s1.append(s0)
+        text = s1
 
         # tokenize input line into a list of words
         lw = tk.tokenize(text)
@@ -102,4 +113,4 @@ class Postagger:
         ls = tagger.analyze(ls)
 
         # do whatever is needed with processed sentences   
-        ProcessSentences(ls)
+        return ProcessSentences(ls)
