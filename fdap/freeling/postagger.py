@@ -8,14 +8,15 @@ class Postagger:
     def __init__(self, texto):
         self.texto = texto
 
-    def ProcessSentences(ls):
+    def ProcessSentences(self, ls):
         # for each sentence in list
+        x = "palabras: {"
         for s in ls :
             # for each word in sentence
             for w in s :
                 # print word form  
                 # print("word '"+w.get_form()+"'")
-                x = "word '"+w.get_form()+"'"
+                x += "word '" + w.get_form() + "'"
                 # print possible analysis in word, output lemma and tag
                 #print("  Possible analysis: {",end="")
                 x +=  "  Possible analysis: {"
@@ -30,87 +31,91 @@ class Postagger:
             # sentence separator
             # print("")
             x+=""
-            return x
+        
+        x+=" }"
+        return x
 
 
     ## -----------------------------------------------
     ## Set desired options for morphological analyzer
     ## -----------------------------------------------
     @staticmethod
-    def my_maco_options(lang,lpath) :
+    def my_maco_options(LANG, DATA) :
 
         # create options holder 
-        opt = freeling.maco_options(lang);
+        opt = freeling.maco_options(LANG);
 
         # Provide files for morphological submodules. Note that it is not 
         # necessary to set file for modules that will not be used.
-        opt.UserMapFile = "";
-        opt.LocutionsFile = lpath + "locucions.dat"; 
-        opt.AffixFile = lpath + "afixos.dat";
-        opt.ProbabilityFile = lpath + "probabilitats.dat"; 
-        opt.DictionaryFile = lpath + "dicc.src";
-        opt.NPdataFile = lpath + "np.dat"; 
-        opt.PunctuationFile = lpath + "../common/punct.dat"; 
-        return opt;
+        opt.UserMapFile     = "";
+        opt.LocutionsFile   = DATA + LANG + "/locucions.dat"; 
+        opt.AffixFile       = DATA + LANG + "/afixos.dat";
+        opt.ProbabilityFile = DATA + LANG + "/probabilitats.dat"; 
+        opt.DictionaryFile  = DATA + LANG + "/dicc.src";
+        opt.NPdataFile      = DATA + LANG + "/np.dat"; 
+        opt.PunctuationFile = DATA + "common/punct.dat"; 
 
+        return opt;
 
 
     ## ----------------------------------------------
     ## -------------    MAIN PROGRAM  ---------------
     ## ----------------------------------------------
-    def principal(self):
+    def inicio(self):
         # set locale to an UTF8 compatible locale 
         freeling.util_init_locale("default");
 
         # get requested language from arg1, or English if not provided      
-        lang = "es"
-        if len(sys.argv)>1 : lang=sys.argv[1]
-
+        lang = "es";
+        
         # get installation path to use from arg2, or use /usr/local if not provided
         ipath = "/usr/local";
-        if len(sys.argv)>2 : ipath=sys.argv[2]
-
+        
         # path to language data   
-        lpath = ipath + "/share/freeling/" + lang + "/"
+        lpath = ipath + "/share/freeling/";
 
         # create analyzers
-        tk=freeling.tokenizer(lpath+"tokenizer.dat");
-        sp=freeling.splitter(lpath+"splitter.dat");
+        tk=freeling.tokenizer(lpath  + lang + "/" + "tokenizer.dat");
+        sp=freeling.splitter(lpath  + lang + "/" + "splitter.dat");
 
         # create the analyzer with the required set of maco_options  
-        morfo=freeling.maco(self.my_maco_options(lang,lpath));
+        morfo=freeling.maco(self.my_maco_options(lang, lpath));
+        
         #  then, (de)activate required modules   
         morfo.set_active_options (False,  # UserMap 
-                                True,  # NumbersDetection,  
-                                True,  # PunctuationDetection,   
-                                True,  # DatesDetection,    
-                                True,  # DictionarySearch,  
-                                True,  # AffixAnalysis,  
-                                False, # CompoundAnalysis, 
-                                True,  # RetokContractions,
-                                True,  # MultiwordsDetection,  
-                                True,  # NERecognition,     
-                                False, # QuantitiesDetection,  
-                                True); # ProbabilityAssignment                 
+                          True,  # NumbersDetection,  
+                          True,  # PunctuationDetection,   
+                          True,  # DatesDetection,    
+                          True,  # DictionarySearch,  
+                          True,  # AffixAnalysis,  
+                          False, # CompoundAnalysis, 
+                          True,  # RetokContractions,
+                          True,  # MultiwordsDetection,  
+                          True,  # NERecognition,     
+                          False, # QuantitiesDetection,  
+                          True); # ProbabilityAssignment   
+
+        sid=sp.open_session();
 
         # create tagger
-        tagger = freeling.hmm_tagger(lpath+"tagger.dat",True,2)
-
-        # process input text
-        s0 = self.texto
+        tagger = freeling.hmm_tagger(lpath + lang + "/" + "tagger.dat",True,2)
+        sen    = freeling.senses(lpath + lang + "/senses.dat");
+        parser = freeling.chart_parser(lpath + lang + "/chunker/grammar-chunk.dat");
+        dep    = freeling.dep_txala(lpath + lang + "/dep_txala/dependences.dat", parser.get_start_symbol());
         
-        s1 = list();
-        s1.append(s0)
-        text = s1
-
         # tokenize input line into a list of words
-        lw = tk.tokenize(text)
+        lw = tk.tokenize(self.texto);
+
         # split list of words in sentences, return list of sentences
-        ls = sp.split(lw)
+        ls = sp.split(sid,lw,False);
+        #ls = sp.split(lw)
 
         # perform morphosyntactic analysis and disambiguation
-        ls = morfo.analyze(ls)
-        ls = tagger.analyze(ls)
+        ls = morfo.analyze(ls);
 
+        return self.ProcessSentences(ls)
+
+        ls = tagger.analyze(ls)
+        
         # do whatever is needed with processed sentences   
-        return ProcessSentences(ls)
+        return self.ProcessSentences(ls)
