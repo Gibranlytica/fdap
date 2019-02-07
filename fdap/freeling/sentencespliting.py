@@ -21,7 +21,7 @@ class SentenceSpliting:
                     x += w.get_form()
                 else:
                     x += " " + w.get_form()
-            x += "} "
+            x += "}"
         
         x += "]"
 

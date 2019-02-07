@@ -10,6 +10,33 @@
     <link rel="stylesheet" type="text/css" href="/static/rest_framework/css/bootstrap-tweaks.css"/>
     <link rel="stylesheet" type="text/css" href="/static/rest_framework/css/prettify.css"/>
     <link rel="stylesheet" type="text/css" href="/static/rest_framework/css/default.css"/>
+
+    <script src="http://{{ request.get_host }}/static/rest_framework/js/jquery-3.3.1.min.js"></script>
+
+    <style type="text/css">
+      .bs-example{
+        margin: 20px;
+      }
+      .panel-title .glyphicon{
+          font-size: 14px;
+      }
+    </style>
+    <script>
+      $(document).ready(function(){
+          // Add minus icon for collapse element which is open by default
+          $(".collapse.in").each(function(){
+            $(this).siblings(".panel-heading").find(".glyphicon").addClass("glyphicon-minus").removeClass("glyphicon-plus");
+          });
+          
+          // Toggle plus minus icon on show hide of collapse element
+          $(".collapse").on('show.bs.collapse', function(){
+            $(this).parent().find(".glyphicon").removeClass("glyphicon-plus").addClass("glyphicon-minus");
+          }).on('hide.bs.collapse', function(){
+            $(this).parent().find(".glyphicon").removeClass("glyphicon-minus").addClass("glyphicon-plus");
+          });
+      });
+    </script>
+
   </head>
   <body class="">
 
@@ -32,16 +59,98 @@
             <div class="content-main" role="main"  aria-label="main content">
               <div class="page-header">&nbsp;</div>
               <div class="response-info" aria-label="response info">
+                
+                <div class="panel-group" id="accordion">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                          <span class="glyphicon glyphicon-plus"></span> Identificación de idioma "LangDetect"
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <p>Enlace <a href="/langdetect/">http://{{ request.get_host }}/langdetect/</a></p>
+                        <p>Argumentos de entrada: "texto" : "texto de entrada"</p>
+                        <p>Salida: *lista de elementos* "texto" : "es | ca | en | fr | gl | it | pt | ru | de | none"</p>
+                        <pre>curl http://{{ request.get_host }}/langdetect/ -H "Content-Type:application/json" -d '{"texto":"Mira que cosa más linda."}' -X POST -s
+                        
+Respuesta:  [{"texto": "es"}]</pre>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                          <span class="glyphicon glyphicon-plus"></span> Segmentador de oraciones y tokenizador "Tokenizer"
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <p>Enlace <a href="/tokenizer/">http://{{ request.get_host }}/tokenizer/</a></p>
+                        <p>Argumentos: "texto" : "texto de entrada"</p>
+                        <p>Salida: *lista de elementos* "texto" : "lista de tokens"</p>
+                        <pre>curl http://{{ request.get_host }}/tokenizer/ -H "Content-Type:application/json" \
+-d '{"texto":"La tarjeta SIM es una tarjeta pequeña que se coloca en el teléfono. Contiene información sobre la red móvil utilizada y servicios adicionales como SMS y MMS."}' -X POST -s
+
+Respuesta:  [{"texto": "['La', 'La', 'tarjeta', 'SIM', 'es', 'una', 'tarjeta', 'pequeña', 'que', 'se', 'coloca', 'en', 'el', 'teléfono', '.', 
+                         'Contiene', 'información', 'sobre', 'la', 'red', 'móvil', 'utilizada', 'y', 'servicios', 'adicionales', 'como', 'SMS', 'y', 'MMS', '.']" }]</pre>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                          <span class="glyphicon glyphicon-plus"></span> Segmentador de oraciones "SentenceSplitting"
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <p>Enlace <a href="/sentenceSplitting/">http://{{ request.get_host }}/sentenceSplitting/</a></p>
+                        <p>Argumentos: "texto" : "texto de entrada"</p>
+                        <p>Salida: *lista de elementos* "texto" : "texto dividio en Oraciones"</p>
+                        <pre>curl http://{{ request.get_host }}/sentenceSplitting/ -H "Content-Type:application/json" \
+-d '{"texto":"La ONU dice que I.B.M. no tiene sede en Francia sino en EEUU. Te espero el lunes a las tres menos cuarto."}' -X POST -s
+
+Respuesta:  [{"texto": "[{'La ONU dice que I.B.M. no tiene sede en Francia sino en EEUU .} 
+                         {'Te espero el lunes a las tres menos cuarto .}]" }]</pre>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                          <span class="glyphicon glyphicon-plus"></span> Etiquetador morfológico "Posttagger"
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseFour" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <p>Enlace <a href="/postagging/">http://{{ request.get_host }}/postagging/</a></p>
+                        <p>Argumentos: "texto" : "texto de entrada"</p>
+                        <p>Salida: *lista de hashes* `palabra`: *palabra*, `lemas`: *lista de hashes* `categoria`: *etiqueta gramatical*, `lema`: *lema*</p>
+                        <pre>curl http://{{ request.get_host }}/postagging/ -H "Content-Type:application/json" \
+-d '{"texto":"El presidente del Atleti hace pelis. Me gusta el jamón. Mucho."}' -X POST -s
+
+Respuesta:  [{"texto ": }]</pre>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+
                 <ul class="list-group">
-                  <li class="list-group-item list-group-item-primary"><a href="/langdetect/">host:port/langdetect/</a></li>
-                  <li class="list-group-item list-group-item-success"><a href="/tokenizer/">host:port/tokenizer/</a></li>
-                  <li class="list-group-item list-group-item-danger"><a href="/sentenceSplitting/">host:port/sentenceSplitting/</a></li>
-                  <li class="list-group-item list-group-item-warning"><a href="/postagging/">host:port/postagging/</a></li>
-                  <li class="list-group-item list-group-item-info"><a href="/wsdtagger/">host:port/wsdtagger/</a></li>
-                  <li class="list-group-item list-group-item-primary"><a href="/ner/">host:port/ner/</a></li>
-                  <li class="list-group-item list-group-item-success"><a href="/datesDetect/">host:port/datesDetect/</a></li>
-                  <li class="list-group-item list-group-item-danger"><a href="/parser/">host:port/parser/</a></li>
-                  <li class="list-group-item list-group-item-warning"><a href="/dependencies/">host:port/dependencies/</a></li>
+                  <li class="list-group-item list-group-item-info"><a href="/wsdtagger/">http://{{ request.get_host }}/wsdtagger/</a></li>
+                  <li class="list-group-item list-group-item-primary"><a href="/ner/">http://{{ request.get_host }}/ner/</a></li>
+                  <li class="list-group-item list-group-item-success"><a href="/datesDetect/">http://{{ request.get_host }}/datesDetect/</a></li>
+                  <li class="list-group-item list-group-item-danger"><a href="/parser/">http://{{ request.get_host }}/parser/</a></li>
+                  <li class="list-group-item list-group-item-warning"><a href="/dependencies/">http://{{ request.get_host }}/dependencies/</a></li>
                 </ul>
               </div>
             </div>
