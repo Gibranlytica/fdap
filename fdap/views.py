@@ -9,6 +9,7 @@ from .freeling.langdetect import LangDetect
 from .freeling.tokenizer import Tokenizer
 from .freeling.sentencespliting import SentenceSpliting
 from . import serializers
+import json
 
 ## ----------------------------------------------
 ## ------    Clase que detecta el Idioma   ------
@@ -66,10 +67,14 @@ class postagging(APIView):
     serializer_class = serializers.textoSerializer
 
     def post(self, request, *args, **kwargs):
-        analize = Postagger(request.data['texto'])
+        h = request.data['texto']
+        dataform = str(h).strip("'<>() ").replace('\'', '\"')
+        j = json.loads(dataform)
+        analize = Postagger(j)
         k = analize.inicio()
         ts= [("texto", k)]
         postag = dict(ts)
+        
         serializer = serializers.textoSerializer(data=postag)
         if serializer.is_valid():
             return Response(serializer.data, status=status.HTTP_201_CREATED)

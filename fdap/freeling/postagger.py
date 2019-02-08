@@ -57,7 +57,6 @@ class Postagger:
 
         return opt;
 
-
     ## ----------------------------------------------
     ## -------------    MAIN PROGRAM  ---------------
     ## ----------------------------------------------
@@ -95,27 +94,37 @@ class Postagger:
                           False, # QuantitiesDetection,  
                           True); # ProbabilityAssignment   
 
-        sid=sp.open_session();
+        #sid=sp.open_session();
 
         # create tagger
-        tagger = freeling.hmm_tagger(lpath + lang + "/" + "tagger.dat",True,2)
-        sen    = freeling.senses(lpath + lang + "/senses.dat");
-        parser = freeling.chart_parser(lpath + lang + "/chunker/grammar-chunk.dat");
-        dep    = freeling.dep_txala(lpath + lang + "/dep_txala/dependences.dat", parser.get_start_symbol());
+        # tagger = freeling.hmm_tagger(lpath + lang + "/" + "tagger.dat",True,2)
+        # sen    = freeling.senses(lpath + lang + "/senses.dat");
+        # parser = freeling.chart_parser(lpath + lang + "/chunker/grammar-chunk.dat");
+        # dep    = freeling.dep_txala(lpath + lang + "/dep_txala/dependences.dat", parser.get_start_symbol());
         
-        # tokenize input line into a list of words
-        lw = tk.tokenize(self.texto);
+        j = self.texto
+        k = []
 
-        # split list of words in sentences, return list of sentences
-        ls = sp.split(sid,lw,False);
-        #ls = sp.split(lw)
+        for i, tk in enumerate(j):
+            k.append(freeling.word(j[str(i+1)]))
 
-        # perform morphosyntactic analysis and disambiguation
-        ls = morfo.analyze(ls);
+        sentencia = freeling.sentence(tuple(k))
+        
+        s = []
+        s.append(sentencia)
+        paragrafo = freeling.paragraph(tuple(s))
+        
+        d = freeling.ListParagraph()
+        d.append(paragrafo)
+        
+        documento = freeling.document("texto")
+        documento.new_document(tuple(d))
 
-        return self.ProcessSentences(ls)
+        anali = morfo.analyze(documento)
 
-        ls = tagger.analyze(ls)
+        return self.ProcessSentences(anali)
+
+        #ls = tagger.analyze(ls)
         
         # do whatever is needed with processed sentences   
-        return self.ProcessSentences(ls)
+        #return self.ProcessSentences(ls)
