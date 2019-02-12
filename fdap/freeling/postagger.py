@@ -110,19 +110,19 @@ class Postagger:
 
         sentencia = freeling.sentence(tuple(k))
         
-        s = []
-        s.append(sentencia)
-        paragrafo = freeling.paragraph(tuple(s))
+        # s = []
+        # s.append(sentencia)
+        # paragrafo = freeling.paragraph(tuple(s))
         
-        d = freeling.ListParagraph()
-        d.append(paragrafo)
+        # d = freeling.ListParagraph()
+        # d.append(paragrafo)
         
-        documento = freeling.document("texto")
-        documento.new_document(tuple(d))
+        # documento = freeling.document(d)
+        # documento.new_document()
 
-        anali = morfo.analyze(documento)
+        # anali = morfo.analyze(documento)
 
-        return self.ProcessSentences(anali)
+        return self.ProcessSentences(sentencia)
 
         #ls = tagger.analyze(ls)
         
