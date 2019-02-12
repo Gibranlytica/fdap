@@ -1,4 +1,4 @@
-import freeling
+import pyfreeling
 import sys
 
 ## -----------------------------------------------

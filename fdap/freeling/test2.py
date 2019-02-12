@@ -2,7 +2,7 @@ from postagger import Postagger
 from tokenizer import Tokenizer
 from sentencespliting import SentenceSpliting
 import logging
-import freeling
+import pyfreeling
 
 import json
 

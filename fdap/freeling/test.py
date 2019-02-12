@@ -7,7 +7,7 @@
 ## For example:
 ##     ./sample.py <test.txt >test_out.txt
 
-import freeling
+import pyfreeling
 import sys
 
 ## ------------  output a parse tree ------------

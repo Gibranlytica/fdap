@@ -1,6 +1,6 @@
 #! /usr/bin/python3
 
-import freeling
+import pyfreeling
 import sys, os
 
 # Location of FreeLing configuration files.
