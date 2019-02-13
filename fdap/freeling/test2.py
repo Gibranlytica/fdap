@@ -6,7 +6,7 @@ import pyfreeling
 
 import json
 
-j = json.loads('{"1":"El", "2":"presidente", "3":"de", "4":"el"}')
+j = json.loads('{"1":"El", "2":"presidente", "3":"de", "4":"el", "5":"Barcelona"}')
 analize = Postagger(j)
 
 # try:
