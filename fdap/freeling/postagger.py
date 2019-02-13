@@ -1,5 +1,7 @@
 import pyfreeling
 import sys
+import time
+start = time.time()
 
 ## -----------------------------------------------
 ## Do whatever is needed with analyzed sentences
@@ -8,33 +10,23 @@ class Postagger:
     def __init__(self, texto):
         self.texto = texto
 
-    def ProcessSentences(self, ls):
-        # for each sentence in list
-        x = "palabras: {"
-        for s in ls :
-            # for each word in sentence
-            for w in s :
-                # print word form  
-                # print("word '"+w.get_form()+"'")
-                x += "word '" + w.get_form() + "'"
-                # print possible analysis in word, output lemma and tag
-                #print("  Possible analysis: {",end="")
-                x +=  "  Possible analysis: {"
-                for a in w :
-                    #print(" ("+a.get_lemma()+","+a.get_tag()+")",end="")
-                    x += " (" + a.get_lemma() + "," + a.get_tag() +")"
-                #print(" }")
-                x+= " }"
-                #  print analysis selected by the tagger 
-                #print("  Selected Analysis: ("+w.get_lemma()+","+w.get_tag()+")")
-                x += "  Selected Analysis: (" +w.get_lemma() + "," + w.get_tag() + ")"
-            # sentence separator
-            # print("")
-            x+=""
+    def ProcessSentences(self, sentencia):
+        x = "["
+        for i, w in enumerate(sentencia):
+            if i == 0:
+                x += '{"palabra": "' +  w.get_form() + '", "lemas": ['
+            else:
+                x += ', {"palabra": "' +  w.get_form() + '", "lemas": ['
+            
+            for k, w_a in enumerate(w.get_analysis()):
+                if k == 0:
+                    x += '{"categoria": "' + w_a.get_tag() + '", "lema": "' + w_a.get_lemma() + '"}'
+                else:
+                    x += ', {"categoria": "' + w_a.get_tag() + '", "lema": "' + w_a.get_lemma() + '"}'
+            x += ']}'
+        x += ']'
         
-        x+=" }"
         return x
-
 
     ## -----------------------------------------------
     ## Set desired options for morphological analyzer
@@ -43,8 +35,8 @@ class Postagger:
     def my_maco_options(LANG, DATA) :
 
         # create options holder 
-        opt = freeling.maco_options(LANG);
-
+        opt = pyfreeling.maco_options(LANG);
+        
         # Provide files for morphological submodules. Note that it is not 
         # necessary to set file for modules that will not be used.
         opt.UserMapFile     = "";
@@ -62,7 +54,7 @@ class Postagger:
     ## ----------------------------------------------
     def inicio(self):
         # set locale to an UTF8 compatible locale 
-        freeling.util_init_locale("default");
+        pyfreeling.util_init_locale("default");
 
         # get requested language from arg1, or English if not provided      
         lang = "es";
@@ -73,13 +65,9 @@ class Postagger:
         # path to language data   
         lpath = ipath + "/share/freeling/";
 
-        # create analyzers
-        tk=freeling.tokenizer(lpath  + lang + "/" + "tokenizer.dat");
-        sp=freeling.splitter(lpath  + lang + "/" + "splitter.dat");
-
         # create the analyzer with the required set of maco_options  
-        morfo=freeling.maco(self.my_maco_options(lang, lpath));
-        
+        morfo=pyfreeling.maco(self.my_maco_options(lang, lpath));
+
         #  then, (de)activate required modules   
         morfo.set_active_options (False,  # UserMap 
                           True,  # NumbersDetection,  
@@ -94,37 +82,16 @@ class Postagger:
                           False, # QuantitiesDetection,  
                           True); # ProbabilityAssignment   
 
-        #sid=sp.open_session();
-
-        # create tagger
-        # tagger = freeling.hmm_tagger(lpath + lang + "/" + "tagger.dat",True,2)
-        # sen    = freeling.senses(lpath + lang + "/senses.dat");
-        # parser = freeling.chart_parser(lpath + lang + "/chunker/grammar-chunk.dat");
-        # dep    = freeling.dep_txala(lpath + lang + "/dep_txala/dependences.dat", parser.get_start_symbol());
-        
         j = self.texto
+
         k = []
-
         for i, tk in enumerate(j):
-            k.append(freeling.word(j[str(i+1)]))
+            k.append(pyfreeling.word(j[str(i+1)]))
 
-        sentencia = freeling.sentence(tuple(k))
+        sentencia = pyfreeling.sentence(tuple(k))
         
-        # s = []
-        # s.append(sentencia)
-        # paragrafo = freeling.paragraph(tuple(s))
-        
-        # d = freeling.ListParagraph()
-        # d.append(paragrafo)
-        
-        # documento = freeling.document(d)
-        # documento.new_document()
+        anali = morfo.analyze(sentencia)
 
-        # anali = morfo.analyze(documento)
+        p = self.ProcessSentences(anali)
 
-        return self.ProcessSentences(sentencia)
-
-        #ls = tagger.analyze(ls)
-        
-        # do whatever is needed with processed sentences   
-        #return self.ProcessSentences(ls)
+        return p

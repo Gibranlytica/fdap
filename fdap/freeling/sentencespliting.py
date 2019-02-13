@@ -32,7 +32,7 @@ class SentenceSpliting:
     ## ----------------------------------------------
     def inicio(self):
         # set locale to an UTF8 compatible locale 
-        freeling.util_init_locale("default");
+        pyfreeling.util_init_locale("default");
 
         # get requested language from arg1, or English if not provided      
         lang = "es";
@@ -44,8 +44,8 @@ class SentenceSpliting:
         lpath = ipath + "/share/freeling/";
 
         # create analyzers
-        tk=freeling.tokenizer(lpath + lang + "/" + "tokenizer.dat");
-        sp=freeling.splitter(lpath + lang + "/" + "splitter.dat");
+        tk=pyfreeling.tokenizer(lpath + lang + "/" + "tokenizer.dat");
+        sp=pyfreeling.splitter(lpath + lang + "/" + "splitter.dat");
 
         sid=sp.open_session();
         

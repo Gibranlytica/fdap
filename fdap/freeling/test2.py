@@ -2,11 +2,11 @@ from postagger import Postagger
 from tokenizer import Tokenizer
 from sentencespliting import SentenceSpliting
 import logging
-import pyfreeling
+import pyfreeling 
 
 import json
 
-j = json.loads('{"1":"El", "2":"mundo", "3":"donde", "4":"vivimos"}')
+j = json.loads('{"1":"El", "2":"presidente", "3":"de", "4":"el"}')
 analize = Postagger(j)
 
 # try:

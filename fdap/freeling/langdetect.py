@@ -14,11 +14,11 @@ class LangDetect:
     def inicio(self):
 
         # Init locales
-        freeling.util_init_locale("default");
+        pyfreeling.util_init_locale("default");
 
         # create language detector. Used just to show it. Results are printed
         # but ignored (after, it is assumed language is LANG)
-        la=freeling.lang_ident(DATA+"common/lang_ident/ident.dat");
+        la=pyfreeling.lang_ident(DATA+"common/lang_ident/ident.dat");
 
         r = self.texto
         return la.identify_language(r)

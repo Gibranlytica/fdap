@@ -24,7 +24,7 @@ class Tokenizer:
     ## ----------------------------------------------
     def inicio(self):
         # set locale to an UTF8 compatible locale 
-        freeling.util_init_locale("default");
+        pyfreeling.util_init_locale("default");
 
         # get requested language from arg1, or English if not provided      
         lang = "es";
@@ -36,7 +36,7 @@ class Tokenizer:
         lpath = ipath + "/share/freeling/";
 
         # create analyzers
-        tk=freeling.tokenizer(lpath + lang + "/" + "tokenizer.dat");
+        tk=pyfreeling.tokenizer(lpath + lang + "/" + "tokenizer.dat");
         
         # tokenize input line into a list of words
         lw = tk.tokenize(self.texto);
