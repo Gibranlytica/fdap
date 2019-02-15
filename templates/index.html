@@ -136,7 +136,7 @@ Respuesta:  [{"texto": "[{'La ONU dice que I.B.M. no tiene sede en Francia sino 
                         <p>Argumentos: "texto" : "texto de entrada"</p>
                         <p>Salida: *lista de hashes* `palabra`: *palabra*, `lemas`: *lista de hashes* `categoria`: *etiqueta gramatical*, `lema`: *lema*</p>
                         <pre>curl http://{{ request.get_host }}/postagging/ -H "Content-Type:application/json" \
--d '{"texto": "'{"1":"El", "2":"presidente", "3":"de", "4":"el", "5":"Barcelona"}'" }' -X POST -s
+-d '{"texto": "{\"1\":\"El\", \"2\":\"presidente\", \"3\":\"de\", \"4\":\"el\", \"5\":\"Barcelona\"}" }' -X POST -s
 
 Respuesta:  [{"texto": "[{"palabra": "El", "lemas": [{"categoria": "DA0MS0", "lema": "el"}]}, {"palabra": "presidente", "lemas": [{"categoria": "NCMS000", "lema": "presidente"}]}, {"palabra": "de", "lemas": [{"categoria": "SP", "lema": "de"}, {"categoria": "NCFS000", "lema": "de"}]}, {"palabra": "el", "lemas": [{"categoria": "DA0MS0", "lema": "el"}]}, {"palabra": "Barcelona", "lemas": [{"categoria": "NP00000", "lema": "barcelona"}]}]"
 } }]</pre>
